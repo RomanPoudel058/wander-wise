@@ -1,5 +1,7 @@
 import User from '../models/user.js';
 
 export const create = async (data) => {
-    return User.create(data);
+    const user = await User.create(data);
+    const { password, ...userWithoutPassword } = user.toJSON();
+    return userWithoutPassword;
 }
