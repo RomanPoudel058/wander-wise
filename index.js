@@ -11,6 +11,7 @@ import connectDB from './config/database.js';
 //$() this is a function that takes a string as an argument and returns an object that represents the express application
 
 import HANDLERS from './handlers/index.js'; 
+import errorMiddleware from './middlewares/error.js';
 
 const  app = express(); // this creates an instance of the express application
 
@@ -36,7 +37,8 @@ const helloWorldNew = (req,res) => {
 connectDB();
 
 app.use(express.json()); // this middleware function is used to parse incoming JSON data in the request body
-app.use('/',HANDLERS);
+app.use('/',HANDLERS); // use for routing, this middleware function is used to handle requests to the root route of the application and delegate them to the appropriate route handlers defined in the HANDLERS module
+app.use(errorMiddleware); //use for error handling middleware, this middleware function is used to handle errors that occur during the processing of requests
 
 app.listen(port,() =>{ 
     console.log(`Example app listening at http://localhost:${port}`); 
