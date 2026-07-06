@@ -31,9 +31,9 @@ const helloWorldNew = (req, res) => {
 
 connectDB();
 
-app.use(express.json());
-app.use("/", HANDLERS);
-app.use(errorMiddleware);
+app.use(express.json()); //this make sure that the request body is parsed as JSON and available in req.body 
+app.use("/", HANDLERS); // this will mount the handlers on the root path, so all the routes defined in the handlers will be accessible from the root path
+app.use(errorMiddleware); // this will handle any errors that occur in the handlers and send a proper response to the client
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
