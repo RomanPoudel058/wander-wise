@@ -1,45 +1,40 @@
-//const  express= require('express'); //Import the expree library commonjs module outdated
-import express from 'express'; //  import the express library using ES modules
+// const express = require('express'); -> commonjs module -> outdated
+import express from 'express'; // -> es module -> modern
 import connectDB from './config/database.js';
+// require('dotenv').config(); -> older approach to load .env variables
 
-// import dotenv from 'dotenv'; // -> es modules modern 
-// require('dotenv').config(); //to old approach to load  environment variables from a .env file
-// dotenv.config(); //old approach to load  environment variables from a .env file
+// import dotenv from 'dotenv';
+// dotenv.config(); -> old approach to load .env variables
 
-//const->immutable , let->mutable
-//everything in js is object
-//$() this is a function that takes a string as an argument and returns an object that represents the express application
-
-import HANDLERS from './handlers/index.js'; 
+import HANDLERS from './handlers/index.js';
 import errorMiddleware from './middlewares/error.js';
 
-const  app = express(); // this creates an instance of the express application
+const app = express();
+const port = process.env.PORT;
 
-const port = process.env.PORT; // this is the port number on which the server will listen for incoming requests
-
-//old approach
-function helloWorldOld(req,res){
-    res.send('Hello World');
+// old approach
+function helloWorldOld(req, res) {
+  res.send('Hello World!');
 }
 
-//new approach arrow function
-//named approach
-const helloWorldNew = (req,res) => {
-    res.send('Hello Again, World');
-}
+// new approach
+// named function
+const helloWorldNew = (req, res) => {
+  res.send('Hello Again, World!');
+};
 
-// app.get('/',(req,res)=>{ 
-//     res.send('Hello World'); 
+// app.get('/', (req, res) => {
+//   res.send('Hello World!');
 // });
 
-//app.get('/',helloWorldNew); // '/' is the root route of the application, and helloWorldNew is the callback function that will be executed when a GET request is made to this route
+// app.get('/', helloWorldNew);
 
 connectDB();
 
-app.use(express.json()); // this middleware function is used to parse incoming JSON data in the request body
-app.use('/',HANDLERS); // use for routing, this middleware function is used to handle requests to the root route of the application and delegate them to the appropriate route handlers defined in the HANDLERS module
-app.use(errorMiddleware); //use for error handling middleware, this middleware function is used to handle errors that occur during the processing of requests
+app.use(express.json());
+app.use("/", HANDLERS);
+app.use(errorMiddleware);
 
-app.listen(port,() =>{ 
-    console.log(`Example app listening at http://localhost:${port}`); 
+app.listen(port, () => {
+  console.log(`Example app listening at http://localhost:${port}`);
 });
