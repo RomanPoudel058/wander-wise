@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:3000
-@userId = 6a43af867424578592b4db35
+@userId = 6a4ce00c2322ccbe8f1498fd
 
 ### TEST API
 GET {{baseUrl}}
