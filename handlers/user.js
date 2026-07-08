@@ -1,9 +1,10 @@
 import { Router } from 'express';
 import { create, index, find, update, remove } from '../services/user.js';
+import { createUserValidator } from '../validators/user.js';
 
 const router = Router();
 
-router.post('/', async (req, res, next) => {
+router.post('/', createUserValidator, async (req, res, next) => {
     try {
         const user = await create(req.body);
         res.status(201).json(user);
