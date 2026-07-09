@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { create, index, find, update, remove } from '../services/user.js';
-import { createUserValidator } from '../validators/user.js';
+import { createUserValidator, updateUserValidator } from '../validators/user.js';
 
 const router = Router();
 
@@ -31,7 +31,7 @@ router.get('/:id', async (req, res, next) => {
     }
 });
 
-router.patch('/:id', async (req, res, next) => {
+router.patch('/:id', updateUserValidator, async (req, res, next) => {
     try {
         const user = await update(req.params.id, req.body);
         res.status(200).json(user);
